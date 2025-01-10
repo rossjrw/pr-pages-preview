@@ -77,6 +77,10 @@ inputs:
       all other events. `auto` is the default value.
     required: false
     default: auto
+  qr-code:
+    description: Whether to show a QR code in the preview comment for easy mobile access
+    required: false
+    default: false
 
 outputs:
   deployment-action:
