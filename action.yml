@@ -140,6 +140,19 @@ runs:
         commit-message: Deploy preview for PR ${{ github.event.number }} 🛫
         force: false
 
+    - name: Generate QR Code
+      if: |
+        env.deployment_action == 'deploy' &&
+        env.deployment_status == 'success' &&
+        (inputs.qr-code == 'true' || inputs.qr-code == true)
+      id: qr
+      run: |
+        cd "$GITHUB_ACTION_PATH"
+        npm install
+        qr_code=$(node lib/generate-qr.js "${{ env.preview_url }}")
+        echo "qr_code=| <p></p> ![QR Code]($qr_code) <br><br>" >> $GITHUB_OUTPUT
+      shell: bash
+
     - name: Leave a comment after deployment
       if: |
         env.deployment_action == 'deploy' &&
@@ -152,6 +165,7 @@ runs:
           [PR Preview Action](https://github.com/${{ env.action_repository }}) ${{ env.action_version }}
           :---:
           | <p></p> :rocket: View preview at <br> ${{ env.preview_url }} <br><br>
+          ${{ inputs.qr-code == 'true' && steps.qr.outputs.qr_code || '' }}
           | <h6>Built to branch [`${{ inputs.preview-branch }}`](${{ github.server_url }}/${{ inputs.deploy-repository }}/tree/${{ inputs.preview-branch }}) at ${{ env.action_start_time }}. <br> Preview will be ready when the [GitHub Pages deployment](${{ github.server_url }}/${{ inputs.deploy-repository }}/deployments) is complete. <br><br> </h6>
 
     - name: Remove preview directory
