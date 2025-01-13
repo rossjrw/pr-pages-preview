@@ -149,15 +149,13 @@ runs:
       run: |
         cd "$GITHUB_ACTION_PATH"
         npm install
-        qr_code=$(node lib/generate-qr.js "${{ env.preview_url }}")
+        raw_qr=$(node lib/generate-qr.js "${{ env.preview_url }}")
         {
-          echo 'qr_code<<EOF'
+          echo 'qr_code<<EOFQR'
           echo "<p></p> <details><summary>📱 Scan QR code to open on mobile</summary><br>"
-          echo 'EOF'
-          echo "$qr_code"
-          echo 'EOF'
+          echo "$raw_qr"
           echo "</details><br>"
-          echo 'EOF'
+          echo 'EOFQR'
         } >> $GITHUB_OUTPUT
       shell: bash
 
