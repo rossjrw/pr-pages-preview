@@ -150,7 +150,7 @@ runs:
         cd "$GITHUB_ACTION_PATH"
         npm install
         qr_code=$(node lib/generate-qr.js "${{ env.preview_url }}")
-        echo "qr_code=| <p></p> ![QR Code]($qr_code) <br><br>" >> $GITHUB_OUTPUT
+        echo "qr_code=| <p></p> $qr_code <br><br>" >> $GITHUB_OUTPUT
       shell: bash
 
     - name: Leave a comment after deployment
