@@ -88,7 +88,6 @@ jobs:
         uses: rossjrw/pr-preview-action@v1
         with:
           source-dir: ./build/
-          qr-code: true  # Optional: Add QR code
 ```
 
 ## Inputs (configuration)
@@ -263,7 +262,7 @@ jobs:
           preview-branch: gh-pages
           umbrella-dir: pr-preview
           action: auto
-          qr-code: true
+          qr-code: false
 ```
 
 ...and an accompanying main deployment workflow:
