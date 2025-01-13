@@ -152,7 +152,7 @@ runs:
         qr_code=$(node lib/generate-qr.js "${{ env.preview_url }}")
         {
           echo 'qr_code<<EOF'
-          echo "$qr_code"
+          echo "| <p></p> <details><summary>📱 Scan QR code to open on mobile</summary><br> $qr_code </details><br>"
           echo 'EOF'
         } >> $GITHUB_OUTPUT
       shell: bash
